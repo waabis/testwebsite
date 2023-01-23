@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Name and Number Input</title>
+  </head>
+  <body>
+    <h1>Enter Your Name and Number</h1>
+    <h1 id="date"></h1>
+    <script>
+      const dateElement = document.querySelector("#date");
+      const date = new Date();
+      dateElement.innerHTML = date.toString();
+    </script>
+    <form>
+      <label for="name">Name:</label>
+      <select id="name">
+        <option value="Janos">Janos</option>
+        <option value="Zak">Zak</option>
+        <option value="Hao">Hao</option>
+        <option value="Thiago">Thiago</option>
+        <option value="Jacopo">Jacopo</option>
+        <option value="Sean">Sean</option>
+        <option value="Ed">Ed</option>
+      </select>
+      <label for="number">% time spent on Consumer support today:</label>
+      <input type="number" id="number">
+      <button type="submit">Submit</button>
+    </form>
+    <h2>Total</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Total</th>
+      </tr>
+      <tr>
+        <td>Janos</td>
+        <td id="total-Janos">0</td>
+      </tr>
+      <tr>
+        <td>Zak</td>
+        <td id="total-Zak">0</td>
+      </tr>
+      <tr>
+        <td>Hao</td>
+        <td id="total-Hao">0</td>
+      </tr>
+      <tr>
+        <td>Thiago</td>
+        <td id="total-Thiago">0</td>
+      </tr>
+      <tr>
+        <td>Jacopo</td>
+        <td id="total-Jacopo">0</td>
+      </tr>
+      <tr>
+        <td>Sean</td>
+        <td id="total-Sean">0</td>
+      </tr>
+      <tr>
+        <td>Ed</td>
+        <td id="total-Ed">0</td>
+      </tr>
+
+    </table>
+    <script>
+      const form = document.querySelector("form");
+      const nameSelect = document.querySelector("#name");
+      const numberInput = document.querySelector("#number");
+      const totalTable = document.querySelector("table");
+
+      let totals = {
+        Janos: 0,
+        Zak: 0,
+        Hao: 0,
+        Thiago: 0,
+        Jacopo: 0,
+        Sean: 0,
+        Ed: 0,
+      };
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = nameSelect.value;
+        const number = parseInt(numberInput.value);
+        totals[name] += number;
+        totalTable.innerHTML = generateTableHtml(totals);
+      });
+
+      function generateTableHtml(totals) {
+        let html = "<tr><th>Name</th><th>Total</th></tr>";
+        for (const name in totals) {
+          html += `<tr><td>${name}</td><td>${totals[name]}</td></tr>`;
+        }
+        return html;
+      }
+    </script>
+  </body>
+</html>
